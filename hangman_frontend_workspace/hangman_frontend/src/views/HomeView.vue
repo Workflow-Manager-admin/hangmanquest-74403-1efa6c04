@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, type CSSProperties } from 'vue'
 import HangmanDrawing from '../components/HangmanDrawing.vue'
 import MaskedWord from '../components/MaskedWord.vue'
 import LetterGrid from '../components/LetterGrid.vue'
@@ -58,13 +58,21 @@ const maskedWord = computed(() =>
 const remaining = computed(() => maxAttempts - incorrect.value.length)
 
 startNewGame()
+
+const attemptsStyle = computed<CSSProperties>(() => ({
+  color: '#4caf50',
+  fontWeight: 'bold',
+  textAlign: 'left',
+  fontSize: '1.2875rem',
+  fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif'
+}))
 </script>
 
 <template>
   <div class="hangman-container">
     <h1 class="game-title">Hangman</h1>
-    <HangmanDrawing :attempts="incorrect.length" :max-attempts="maxAttempts" class="drawing" />
-    <MaskedWord :masked-word="maskedWord" :original-word="word" :status="status" class="masked" />
+    <HangmanDrawing :attempts="incorrect.length" :maxAttempts="maxAttempts" class="drawing" />
+    <MaskedWord :maskedWord="maskedWord" :originalWord="word" :status="status" class="masked" />
     <LetterGrid
       :guessed="guessed"
       :incorrect="incorrect"
@@ -72,8 +80,8 @@ startNewGame()
       @guess="guessLetter"
     />
     <div class="attempts-score-row">
-      <span :style="{color: 'var(--color-secondary)'}"><strong>Score:</strong> {{ score }}</span>
-      <span class="remaining" :style="{color: remaining > 2 ? 'var(--color-primary)' : 'var(--color-accent)'}">
+      <span><strong :style="{color: '#2196f3', fontWeight: 'bold', textAlign: 'left', fontSize: '1.35rem'}">Score:</strong> {{ score }}</span>
+      <span class="remaining" :style="attemptsStyle">
         <strong>Attempts:</strong> {{ remaining }} / {{ maxAttempts }}
       </span>
     </div>

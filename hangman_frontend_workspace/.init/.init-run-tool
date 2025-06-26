@@ -1,0 +1,4 @@
+{
+    "command": "npm run dev -- --port <port> --host <host>",
+    "working_directory": "/home/kavia/workspace/code-generation/hangmanquest-74403-1efa6c04/hangman_frontend_workspace/hangman_frontend"
+}
